@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.description = 'Using this extension, we can integrate google places to complete the billing and shipping address of any user.'
   s.required_ruby_version = '>= 2.1.0'
 
-  # s.author    = 'Gaurav Mahajan'
-  # s.email     = 'gaurav@vinsol.com'
+  s.author    = 'Gaurav Mahajan'
+  s.email     = 'gaurav@vinsol.com'
   # s.homepage  = 'http://www.spreecommerce.com'
   s.license = 'BSD-3'
 
