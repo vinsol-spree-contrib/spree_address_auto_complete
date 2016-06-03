@@ -1,5 +1,4 @@
 SpreeAddressAutoComplete
-========================
 
 Introduction goes here.
 
@@ -51,3 +50,4 @@ If you'd like to contribute, please take a look at the
 pull request.
 
 Copyright (c) 2016 [name of extension creator], released under the New BSD License
+# spree_address_auto_complete
