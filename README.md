@@ -6,7 +6,7 @@ Introduction goes here.
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_address_auto_complete', github: '[your-github-handle]/spree_address_auto_complete', branch: 'X-X-stable'
+  gem 'spree_address_auto_complete', git: 'https://github.com/vinsol/spree_address_auto_complete', branch: '3-0-stable'
   ```
 
   The `branch` option is important: it must match the version of Spree you're using.
@@ -22,7 +22,11 @@ Introduction goes here.
   bundle exec rails g spree_address_auto_complete:install
   ```
 
-4. Restart your server
+4. Add Api-Key
+
+  Add `google_maps_api_key` to your secrets.
+
+5. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
 
