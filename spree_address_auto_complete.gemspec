@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_address_auto_complete'
-  s.version     = '3.1.0.rc1'
+  s.version     = '3.0.9'
   s.summary     = 'This is to use google places api to complete addresses in spree.'
   s.description = 'Using this extension, we can integrate google places to complete the billing and shipping address of any user.'
   s.required_ruby_version = '>= 2.1.0'
