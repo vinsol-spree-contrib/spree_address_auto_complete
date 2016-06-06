@@ -1,20 +1,20 @@
 AddressAutoComplete = function(searchInputID, addressType) {
   this.searchInput = document.getElementById(searchInputID);
   this.formComponents = {
-    postal_code: $('#order_' + addressType + '_address_attributes_zipcode'),
-    country: $('#order_' + addressType + '_address_attributes_country_id'),
-    state: $('#order_' + addressType + '_address_attributes_state_id'),
-    city: $('#order_' + addressType + '_address_attributes_city'),
-    address1: $('#order_' + addressType + '_address_attributes_address1'),
-    address2: $('#order_' + addressType + '_address_attributes_address2')
+    postal_code: $("[id$='" + addressType + "_address_attributes_zipcode']"),
+    country: $("[id$='" + addressType + "_address_attributes_country_id']"),
+    state: $("[id$='" + addressType + "_address_attributes_state_id']"),
+    city: $("[id$='" + addressType + "_address_attributes_city']"),
+    address1: $("[id$='" + addressType + "_address_attributes_address1']"),
+    address2: $("[id$='" + addressType + "_address_attributes_address2']")
   };
 }
 
 AddressAutoComplete.prototype.init = function() {
-  var _this = this
+  var _this = this;
   this.autocomplete = new google.maps.places.Autocomplete(this.searchInput, {});
   this.autocomplete.addListener('place_changed', function() {
-    _this.fillInAddress(this)
+    _this.fillInAddress(this);
   });
 }
 
@@ -22,23 +22,25 @@ AddressAutoComplete.prototype.fillInAddress = function(autocomplete) {
   this.clearFormComponents();
   var place = autocomplete.getPlace();
   var addressComponents = place.address_components.reverse();
+  var addressOneComponentsLength = 0
   for(address_component_index in addressComponents) {
-    var addressType = addressComponents[address_component_index].types[0]
-    var addressLongName = addressComponents[address_component_index]['long_name']
-    var addressShortName = addressComponents[address_component_index]['short_name']
+    var addressType = addressComponents[address_component_index].types[0];
+    var addressLongName = addressComponents[address_component_index]['long_name'];
+    var addressShortName = addressComponents[address_component_index]['short_name'];
 
     if(addressType == 'postal_code') {
-      this.formComponents['postal_code'].val(addressLongName)
+      this.formComponents['postal_code'].val(addressLongName);
     } else if(addressType == 'country') {
-      this.setCountry(addressShortName)
+      this.setCountry(addressShortName);
     } else if(addressType == 'administrative_area_level_1') {
-      this.setState(addressLongName)
-    } else if(addressType == 'administrative_area_level_2') {
-      this.setCity(addressLongName)
-    } else if(address_component_index > (addressComponents.length - 3)) {
-      this.setAddress(1, addressLongName)
+      this.setState(addressLongName);
+    } else if(addressType == 'locality') {
+      this.setCity(addressLongName);
+    } else if(addressOneComponentsLength < 2) {
+      this.setAddress(1, addressLongName);
+      addressOneComponentsLength++
     } else {
-      this.setAddress(2, addressLongName)
+      this.setAddress(2, addressLongName);
     }
   }
 };
@@ -61,7 +63,7 @@ AddressAutoComplete.prototype.setState = function(stateName) {
     dataType: 'json',
     success: function(data) {
       _this.formComponents.state.val(data['state_id']).change();
-      $(_this.searchInput).parents('.panel-body').find('.select2-chosen:last').html(_this.formComponents.state.find(':selected').html())
+      $(_this.searchInput).parents('.panel-body').find('.select2-chosen:last').html(_this.formComponents.state.find(':selected').html());
     }
   })
 }
@@ -72,15 +74,15 @@ AddressAutoComplete.prototype.setCity = function(cityName) {
 
 AddressAutoComplete.prototype.setAddress = function(addressNumber, addressLongName) {
   if(this.formComponents['address' + addressNumber].val() == '') {
-    this.formComponents['address' + addressNumber].val(addressLongName)
+    this.formComponents['address' + addressNumber].val(addressLongName);
   } else {
-    this.formComponents['address' + addressNumber].val(this.formComponents['address' + addressNumber].val() + ', ' + addressLongName)
+    this.formComponents['address' + addressNumber].val(addressLongName + ', ' + this.formComponents['address' + addressNumber].val());
   }
 }
 
 $(function() {
-  billingAddressAutoComplete = new AddressAutoComplete('billing_search', 'bill')
+  billingAddressAutoComplete = new AddressAutoComplete('billing_search', 'bill');
   billingAddressAutoComplete.init();
-  shippingAddressAutoComplete = new AddressAutoComplete('shipping_search', 'ship')
+  shippingAddressAutoComplete = new AddressAutoComplete('shipping_search', 'ship');
   shippingAddressAutoComplete.init();
 });
