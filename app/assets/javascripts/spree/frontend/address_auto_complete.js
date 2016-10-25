@@ -59,7 +59,7 @@ AddressAutoComplete.prototype.setCountry = function(countryISO) {
 AddressAutoComplete.prototype.setState = function(stateName) {
   var _this = this;
   $.ajax({
-    url: '/api/states/' + stateName + '/state_id',
+    url: '/api/v1/states/' + stateName + '/state_id',
     dataType: 'json',
     success: function(data) {
       _this.formComponents.state.val(data['state_id']).change();
