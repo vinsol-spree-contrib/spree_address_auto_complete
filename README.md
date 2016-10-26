@@ -1,4 +1,4 @@
-SpreeAddressAutoComplete
+# SpreeAddressAutoComplete
 
 SpreeAddressAutoComplete allows you to use suggested address functionality using google maps api. Once installed the user will be given with a field in the address step of checkout page, using which he can select one of the suggested addresses by google, instead of typing the whole address by himself.
 
@@ -8,9 +8,6 @@ SpreeAddressAutoComplete allows you to use suggested address functionality using
   ```ruby
   gem 'spree_address_auto_complete', git: 'https://github.com/vinsol/spree_address_auto_complete', branch: '3-0-stable'
   ```
-
-  The `branch` option is important: it must match the version of Spree you're using.
-  For example, use `3-1-stable` if you're using Spree `3-1-stable` or any `3.1.x` version.
 
 2. Install the gem using Bundler:
   ```ruby
@@ -22,9 +19,7 @@ SpreeAddressAutoComplete allows you to use suggested address functionality using
   bundle exec rails g spree_address_auto_complete:install
   ```
 
-4. Add Api-Key
-
-  Add `google_maps_api_key` to your secrets.
+4. Go to general_setting in admin section to add your google maps api key.
 
 5. Restart your server
 
@@ -40,14 +35,6 @@ bundle exec rake test_app
 bundle exec rspec spec
 ```
 
-When testing your applications integration with this extension you may use it's factories.
-Simply add this require statement to your spec_helper:
-
-```ruby
-require 'spree_address_auto_complete/factories'
-```
-
-
 ## Contributing
 
 If you'd like to contribute, please take a look at the
@@ -55,4 +42,4 @@ If you'd like to contribute, please take a look at the
 pull request.
 
 Copyright (c) 2016 [name of extension creator], released under the New BSD License
-# spree_address_auto_complete
+
