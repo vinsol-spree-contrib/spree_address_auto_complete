@@ -3,3 +3,6 @@
 
 en:
   hello: "Hello world"
+
+  spree:
+    google_maps_api_key: 'Google maps api key'
