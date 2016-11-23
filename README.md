@@ -6,7 +6,7 @@ SpreeAddressAutoComplete allows you to use suggested address functionality using
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_address_auto_complete', git: 'https://github.com/vinsol/spree_address_auto_complete'
+  gem 'spree_address_auto_complete', git: 'https://github.com/vinsol/spree_address_auto_complete', branch: '3-1-stable'
   ```
 
 2. Install the gem using Bundler:
