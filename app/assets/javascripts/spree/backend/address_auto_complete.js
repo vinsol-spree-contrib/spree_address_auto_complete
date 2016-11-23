@@ -57,15 +57,11 @@ AddressAutoComplete.prototype.setCountry = function(countryISO) {
 }
 
 AddressAutoComplete.prototype.setState = function(stateName) {
-  var _this = this;
-  $.ajax({
-    url: '/api/states/' + stateName + '/state_id',
-    dataType: 'json',
-    success: function(data) {
-      _this.formComponents.state.val(data['state_id']).change();
-      $(_this.searchInput).parents('.panel-body').find('.select2-chosen:last').html(_this.formComponents.state.find(':selected').html());
-    }
-  })
+  var stateId = $('#order_bill_address_attributes_state_id option').filter(function () {
+    return $(this).html().toLowerCase() == stateName.toLowerCase();
+  }).val();
+
+  this.formComponents.state.val(stateId).change();
 }
 
 AddressAutoComplete.prototype.setCity = function(cityName) {
