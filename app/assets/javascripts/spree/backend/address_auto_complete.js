@@ -12,6 +12,7 @@ AddressAutoComplete = function(searchInputID, addressType) {
 
 AddressAutoComplete.prototype.init = function() {
   var _this = this;
+  if(!this.searchInput) return;
   this.autocomplete = new google.maps.places.Autocomplete(this.searchInput, {});
   this.autocomplete.addListener('place_changed', function() {
     _this.fillInAddress(this);
