@@ -13,11 +13,6 @@ Installation
     gem 'spree_address_auto_complete', git: 'https://github.com/vinsol-spree-contrib/spree_address_auto_complete', branch: 'master'
   ```
 
-  Alternatively, you can also use specific versions too.
-  ```ruby
-    gem 'spree_address_auto_complete', '~> 3.x.0'
-  ```
-
   #### Spree < 3.2
 
   ```ruby
