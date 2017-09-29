@@ -3,7 +3,7 @@ module Spree
     def add_search_bar(address_type)
       country_mapping = available_countries.map { |country| [country.iso, country.id] }.to_h
       label = label_tag "#{address_type}_search", Spree.t(:search)
-      text_field = text_field_tag :search, '', :class => 'form-control address-search-bar', id: "#{address_type}_search", data: { country_mapping: country_mapping }
+      text_field = text_field_tag :search, '', class: 'form-control address-search-bar', id: "#{address_type}_search", data: { country_mapping: country_mapping }
       content_tag('p', (label + text_field).html_safe, class: 'form-group')
     end
 
