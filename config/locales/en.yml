@@ -6,3 +6,4 @@ en:
 
   spree:
     google_maps_api_key: 'Google maps api key'
+    google_maps_placeholder: 'Enter a location'
