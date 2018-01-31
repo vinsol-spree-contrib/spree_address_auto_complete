@@ -2,23 +2,24 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_address_auto_complete'
-  s.version     = '3.2.0.beta1'
+  s.version     = '3.3.0'
   s.summary     = 'This is to use google places api to complete addresses in spree.'
   s.description = 'Using this extension, we can integrate google places to complete the billing and shipping address of any user.'
-  s.required_ruby_version = '>= 2.1.0'
+  s.required_ruby_version = '>= 2.2.7'
 
   s.author    = 'Gaurav Mahajan'
-  s.email     = 'gaurav@vinsol.com'
-  # s.homepage  = 'http://www.spreecommerce.com'
+  s.email     = 'info@vinsol.com'
+  s.homepage  = 'http://vinsol.com'
   s.license = 'BSD-3'
 
-  # s.files       = `git ls-files`.split("\n")
-  # s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files       = `git ls-files`.split("\n")
+  s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree', '~> 3.2.0.beta1'
+  s.add_dependency 'spree', '>= 3.2.0', '< 4.0'
 
+  s.add_development_dependency 'appraisal'
   s.add_development_dependency 'capybara', '~> 2.6'
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'database_cleaner'
@@ -29,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'rails-controller-testing'
 end
