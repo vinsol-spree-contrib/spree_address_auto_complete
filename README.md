@@ -3,6 +3,16 @@ SpreeAddressAutoComplete
 
 SpreeAddressAutoComplete allows you to use suggested address functionality using Google maps api. Once installed the user will be given with a field in the address step of checkout page, using which he can select one of the suggested addresses by Google, instead of typing the whole address by himself.
 
+Demo
+----
+Try Spree Address Auto Complete for Spree 3-4 with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-address-auto-complete-3-4)
+
+Try Spree Address Auto Complete for Spree master with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-address-auto-complete-master)
+
 Installation
 ------------
 1. Add this extension to your Gemfile with this line:
