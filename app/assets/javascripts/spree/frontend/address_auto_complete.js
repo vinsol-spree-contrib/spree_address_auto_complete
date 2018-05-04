@@ -1,5 +1,7 @@
 AddressAutoComplete = function(searchInputID, addressType) {
   this.searchInput = document.getElementById(searchInputID);
+  this.addressRegion = addressType.substring(0,1);
+  this.addressContainerClass = 'order_' + addressType + '_address_attributes_state_id';
   this.formComponents = {
     postal_code: $("[id$='" + addressType + "_address_attributes_zipcode']"),
     country: $("[id$='" + addressType + "_address_attributes_country_id']"),
@@ -56,8 +58,83 @@ AddressAutoComplete.prototype.setCountry = function(countryISO) {
   this.formComponents.country.val(optionId).change();
 }
 
+
 AddressAutoComplete.prototype.setState = function(stateName) {
-  var stateId = $('#order_bill_address_attributes_state_id option').filter(function () {
+  var _this = this;
+  var countryId = $('#' + this.addressRegion + 'country select').val();
+  if (countryId != null) {
+    if (Spree.Checkout[countryId] == null) {
+      return $.get(Spree.routes.states_search, {
+        country_id: countryId
+      }, function(data) {
+        Spree.Checkout[countryId] = {
+          states: data.states,
+          states_required: data.states_required
+        };
+        return _this.fillStates(Spree.Checkout[countryId], _this.addressRegion, stateName);
+      });
+    } else {
+      return _this.fillStates(Spree.Checkout[countryId], _this.addressRegion, stateName);
+    }
+  }
+}
+
+AddressAutoComplete.prototype.fillStates = function(data, region, stateName) {
+  var _this = this;
+  var selected, stateInput, statePara, stateSelect, stateSpanRequired, states, statesRequired, statesWithBlank;
+  statesRequired = data.states_required;
+  states = data.states;
+  statePara = $('#' + region + 'state');
+  stateSelect = statePara.find('select');
+  stateInput = statePara.find('input');
+  stateSpanRequired = statePara.find('[id$="state-required"]');
+  if (states.length > 0) {
+    selected = parseInt(stateSelect.val());
+    stateSelect.html('');
+    statesWithBlank = [
+      {
+        name: '',
+        id: ''
+      }
+    ].concat(states);
+    $.each(statesWithBlank, function(idx, state) {
+      var opt;
+      opt = ($(document.createElement('option'))).attr('value', state.id).html(state.name);
+      if (selected === state.id) {
+        opt.prop('selected', true);
+      }
+      return stateSelect.append(opt);
+    });
+    stateSelect.prop('disabled', false).show();
+    stateInput.hide().prop('disabled', true);
+    statePara.show();
+    stateSpanRequired.show();
+    if (statesRequired) {
+      stateSelect.addClass('required');
+    }
+    _this.updateState(stateName);
+    stateSelect.removeClass('hidden');
+    return stateInput.removeClass('required');
+  } else {
+    stateSelect.hide().prop('disabled', true);
+    stateInput.show();
+    if (statesRequired) {
+      stateSpanRequired.show();
+      stateInput.addClass('required');
+    } else {
+      stateInput.val('');
+      stateSpanRequired.hide();
+      stateInput.removeClass('required');
+    }
+    statePara.toggle(!!statesRequired);
+    stateInput.prop('disabled', !statesRequired);
+    stateInput.removeClass('hidden');
+    return stateSelect.removeClass('required');
+  }
+}
+
+AddressAutoComplete.prototype.updateState = function(stateName) {
+  var stateId = $('#' + this.addressContainerClass + ' option').filter(function () {
     return $(this).html().toLowerCase() == stateName.toLowerCase();
   }).val();
 
