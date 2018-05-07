@@ -1,7 +1,6 @@
-AddressAutoComplete = function(searchInputID, addressType, addressContainerClass) {
+AddressAutoComplete = function(searchInputID, addressType) {
   this.searchInput = document.getElementById(searchInputID);
   this.addressRegion = addressType.substring(0,1);
-  this.addressContainerClass = 'order_' + addressType + '_address_attributes_state_id';
   this.formComponents = {
     postal_code: $("[id$='" + addressType + "_address_attributes_zipcode']"),
     country: $("[id$='" + addressType + "_address_attributes_country_id']"),
@@ -91,7 +90,7 @@ AddressAutoComplete.prototype.setState =function(stateName) {
 }
 
 AddressAutoComplete.prototype.updateState = function(stateName) {
-  var stateId = $('#' + this.addressContainerClass + ' option').filter(function () {
+  var stateId = this.formComponents.state.find('option').filter(function () {
     return $(this).html().toLowerCase() == stateName.toLowerCase();
   }).val();
 
