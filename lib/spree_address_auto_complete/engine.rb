@@ -9,6 +9,8 @@ module SpreeAddressAutoComplete
       g.test_framework :rspec
     end
 
+    config.assets.precompile += %w( spree/backend/address_auto_complete.js spree/frontend/address_auto_complete.js )
+
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)

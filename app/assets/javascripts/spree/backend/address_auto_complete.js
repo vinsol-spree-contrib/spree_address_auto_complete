@@ -1,5 +1,6 @@
 AddressAutoComplete = function(searchInputID, addressType) {
   this.searchInput = document.getElementById(searchInputID);
+  this.addressRegion = addressType.substring(0,1);
   this.formComponents = {
     postal_code: $("[id$='" + addressType + "_address_attributes_zipcode']"),
     country: $("[id$='" + addressType + "_address_attributes_country_id']"),
@@ -52,12 +53,44 @@ AddressAutoComplete.prototype.clearFormComponents = function() {
 }
 
 AddressAutoComplete.prototype.setCountry = function(countryISO) {
-  var OptionId = $(this.searchInput).data('countryMapping')[countryISO];
-  this.formComponents.country.val(OptionId).change();
+  var optionId = $(this.searchInput).data('countryMapping')[countryISO];
+  this.formComponents.country.val(optionId).change();
 }
 
-AddressAutoComplete.prototype.setState = function(stateName) {
-  var stateId = $('#order_bill_address_attributes_state_id option').filter(function () {
+AddressAutoComplete.prototype.setState =function(stateName) {
+  var _this = this;
+  var country = $('span#' + this.addressRegion + 'country .select2').select2('val');
+  var state_select = $('span#' + this.addressRegion + 'state select.select2');
+  var state_input = $('span#' + this.addressRegion + 'state input.state_name');
+  $.get(Spree.routes.states_search + '?country_id=' + country, function (data) {
+    var states = data.states;
+    if (states.length > 0) {
+      state_select.html('');
+      var states_with_blank = [{
+        name: '',
+        id: ''
+      }].concat(states);
+      $.each(states_with_blank, function (pos, state) {
+        var opt = $(document.createElement('option'))
+          .prop('value', state.id)
+          .html(state.name);
+        state_select.append(opt);
+      });
+      state_select.prop('disabled', false).show();
+      state_select.select2();
+      state_input.hide().prop('disabled', true);
+    } else {
+      state_input.prop('disabled', false).show();
+      state_select.select2('destroy').hide();
+    }
+  })
+    .done(function(){
+      _this.updateState(stateName);
+  });
+}
+
+AddressAutoComplete.prototype.updateState = function(stateName) {
+  var stateId = this.formComponents.state.find('option').filter(function () {
     return $(this).html().toLowerCase() == stateName.toLowerCase();
   }).val();
 
