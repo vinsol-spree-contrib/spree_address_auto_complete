@@ -80,6 +80,13 @@ Testing
   bundle
   bundle exec rspec spec
   ```
+  
+## See It In Action
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=F-8sa9izVqw
+" target="_blank"><img src="http://img.youtube.com/vi/F-8sa9izVqw/0.jpg" 
+alt="Youtube Video Tutorial" /></a>
+
 Credits
 -------
 
