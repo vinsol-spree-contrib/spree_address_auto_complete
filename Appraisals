@@ -6,16 +6,20 @@ appraise 'spree-3-3' do
   gem 'spree', '~> 3.3.0'
 end
 
-appraise 'spree-3-3' do
-  gem 'spree', '~> 3.3.0'
-end
-
 appraise 'spree-3-4' do
   gem 'spree', '~> 3.4.0'
 end
 
 appraise 'spree-3-5' do
-  gem 'spree', github: 'spree/spree', branch: '3-5-stable'
+  gem 'spree', '~> 3.5.0'
+end
+
+appraise 'spree-3-6' do
+  gem 'spree', '~> 3.6.0'
+end
+
+appraise 'spree-3-7' do
+  gem 'spree', '~> 3.7.0'
 end
 
 appraise 'spree-master' do
